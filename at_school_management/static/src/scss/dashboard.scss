@@ -1,0 +1,55 @@
+.o_dashboard {
+    background: #f8f9fb;
+    min-height: 100vh;
+}
+
+.o_card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 14px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.o_card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.o_card_icon {
+    font-size: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.o_card_title {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.o_card_value {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Color Themes */
+.o_card_primary {
+    background: linear-gradient(135deg, #4e73df, #224abe);
+}
+
+.o_card_info {
+    background: linear-gradient(135deg, #36b9cc, #1c7c8c);
+}
+
+.o_card_success {
+    background: linear-gradient(135deg, #1cc88a, #13855c);
+}
+
+.o_card_warning {
+    background: linear-gradient(135deg, #f6c23e, #dda20a);
+}

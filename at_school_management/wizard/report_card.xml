@@ -1,0 +1,34 @@
+<odoo>
+
+    <record id="view_report_card_wizard_form" model="ir.ui.view">
+        <field name="name">report.card.wizard.form</field>
+        <field name="model">report.card.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Report Card">
+                <group>
+                    <field name="academic_id"/>
+                    <field name="student_id"/>
+                </group>
+
+                <footer>
+                    <button name="action_confirm"
+                            string="Confirm"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel"
+                            special="cancel"
+                            class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_report_card_wizard" model="ir.actions.act_window">
+        <field name="name">Exam Result</field>
+        <field name="res_model">report.card.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_exam_result" name="Exam Result" parent="menu_schools_reports" action="action_report_card_wizard"/>
+</odoo>

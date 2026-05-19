@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List View -->
+    <record id="view_school_fee_payment_list" model="ir.ui.view">
+        <field name="name">school.fee.payment.list</field>
+        <field name="model">school.fee.payment</field>
+        <field name="arch" type="xml">
+            <list string="Fee Payments">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="class_id"/>
+                <field name="academic_id"/>
+                <field name="date"/>
+                <field name="total_amount" sum="Sum of Total Amount"/>
+                <field name="amount_paid" sum="Sum of Total Paid"/>
+                <field name="balance_amount" sum="Sum of Total Balance"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_school_fee_payment_form" model="ir.ui.view">
+        <field name="name">school.fee.payment.form</field>
+        <field name="model">school.fee.payment</field>
+        <field name="arch" type="xml">
+            <form string="Fee Payment">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="student_id"  options="{'no_create': True}"/>
+                            <field name="class_id"  options="{'no_create': True}"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="user_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="academic_id"  options="{'no_create': True}"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Fee Type">
+                            <field name="fee_line_ids" mode="list">
+                                <list editable="bottom">
+                                    <field name="fee_type_id"  options="{'no_create': True}"/>
+                                    <field name="description"/>
+                                    <field name="amount" sum="Sum of Total Amount"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Payment Collection">
+                            <field name="fee_collection_ids" mode="list">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="payment_mode"/>
+                                    <field name="description"/>
+                                    <field name="paid" sum="Sum of Total Amount"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                    <button name="action_fee_receipt_report_pdf"
+                                        type="object"
+                                        class="oe_highlight"
+                                        string="Print"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group name="note_group" col="6" class="mt-2 mt-md-0">
+                        <group colspan="4" class="order-1 order-lg-0">
+                            <field  colspan="2" name="note" nolabel="1" placeholder="Terms and conditions..."/>
+                        </group>
+                        <group class="oe_subtotal_footer">
+                            <field name="total_amount" readonly="1"/>
+                            <field name="amount_paid" readonly="1"/>
+                            <field name="balance_amount" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_school_fee_payment" model="ir.actions.act_window">
+        <field name="name">Fee Payments</field>
+        <field name="res_model">school.fee.payment</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register a fee payment record
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_school_fee_payment_root" name="Fee Management" parent="menu_school_root" sequence="4"/>
+    <menuitem id="menu_school_fee_payment" name="Fee Payments" parent="menu_school_fee_payment_root" sequence="10"
+              action="action_school_fee_payment"/>
+</odoo>

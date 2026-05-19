@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_fee_payment" model="ir.actions.report">
+        <field name="name">Fee Structure</field>
+        <field name="model">school.fee.payment</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">at_school_management.report_school_fee_payment</field>
+        <field name="report_file">at_school_management.report_school_fee_payment</field>
+        <field name="print_report_name">"Fee Report"</field>
+        <field name="binding_model_id" ref="model_school_fee_payment"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_school_fee_payment">
+        <t t-call="at_school_management.report_payment_with_lines"/>
+    </template>
+
+    <template id="report_payment_with_lines">
+    <t t-call="web.html_container">
+        <t t-call="web.external_layout">
+
+            <t t-foreach="docs" t-as="doc">
+                
+                <!-- Header -->
+                <div class="page">
+                    <h2>Payment Report</h2>
+
+                    <!-- Customer Info -->
+                    <div>
+                        <strong>Student:</strong>
+                        <span t-esc="doc.student_id.name"/>
+                        <br/>
+                        <strong>Class:</strong>
+                        <span t-esc="doc.class_id.name"/>
+                    </div>
+
+                    <br/>
+
+                    <!-- Payment Details -->
+                    <h3>Payment Details</h3>
+                    <table class="table table-sm">
+                        <tr>
+                            <td><strong>Payment Reference</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date</strong></td>
+                            <td><span t-esc="doc.date"/></td>
+                        </tr>
+                        <!-- <tr>
+                            <td><strong>Amount</strong></td>
+                            <td>
+                                <span t-esc="doc.amount"
+                                      t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Payment Method</strong></td>
+                            <td><span t-esc="doc.payment_method_id.name"/></td>
+                        </tr> -->
+                    </table>
+
+                    <br/>
+
+                    <!-- Line Items -->
+                    <h3>Fee Details:</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Item</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="i" t-value="1"/>
+                            <t t-foreach="doc.fee_line_ids" t-as="line">
+                                <tr>
+                                    <td><span t-esc="i"/></td>
+                                    <td><span t-esc="line.fee_type_id.name"/></td>
+                                    <td><span t-esc="line.description"/></td>
+                                    <td>
+                                        <span t-esc="line.amount"
+                                              t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <t t-set="i" t-value="i + 1"/>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <br/>
+
+                    <!-- Total -->
+                    <div style="text-align:right;">
+                        <strong>Total:</strong>
+                        <span t-esc="doc.total_amount"
+                              t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    </div>
+                    <div style="text-align:right;">
+                        <strong>Paid:</strong>
+                        <span t-esc="doc.amount_paid"
+                              t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    </div>
+                    <div style="text-align:right;">
+                        <strong>Balance:</strong>
+                        <span t-esc="doc.balance_amount"
+                              t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+
+ <record id="action_fee_xlsx" model="ir.actions.report">
+        <field name="name">Fee Excel Report</field>
+        <field name="model">fee.payment.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">at_school_management.fee_xlsx</field>
+        <field name="report_file">fee_report</field>
+    </record>
+</odoo>

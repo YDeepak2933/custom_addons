@@ -1,0 +1,101 @@
+<templates xml:space="preserve">
+
+    <t t-name="student_fee_dashboard">
+        <div class="o_dashboard container-fluid p-4">
+
+            <div class="text-center mb-4">
+
+                <h2 class="fw-bold">
+                    📊 <t t-esc="state.company_name"/>
+                </h2>
+
+                <div class="text-muted">
+                    School Management Dashboard
+                </div>
+
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h5 class="mb-0">Academic Year</h5>
+
+                <select class="form-select w-auto"
+                        t-on-change="onYearChange">
+                    <t t-foreach="state.academic_years" t-as="year" t-key="year.id">
+                        <option t-att-value="year.id"
+                                t-att-selected="year.id === state.selected_year_id">
+                            <t t-esc="year.name"/>
+                        </option>
+                    </t>
+                </select>
+
+            </div>
+
+            <div class="row g-4">
+
+                <!-- Students -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="o_card o_card_primary" t-on-click="openStudents">
+                        <div class="o_card_icon">👨‍🎓</div>
+                        <div>
+                            <div class="o_card_title">Students</div>
+                            <div class="o_card_value">
+                                <t t-esc="state.student_count"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Fees -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="o_card o_card_info" t-on-click="openFees">
+                        <div class="o_card_icon">💰</div>
+                        <div>
+                            <div class="o_card_title">Total Fees</div>
+                            <div class="o_card_value">
+                                <h1>
+                                    <t t-esc="state.currency_symbol"/> 
+                                    <t t-esc="state.fee_total"/>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paid -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="o_card o_card_success">
+                        <div class="o_card_icon">✅</div>
+                        <div>
+                            <div class="o_card_title">Paid</div>
+                            <div class="o_card_value">
+                                <h1>
+                                <t t-esc="state.currency_symbol"/> 
+                                <t t-esc="state.fee_paid"/>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="o_card o_card_warning">
+                        <div class="o_card_icon">⏳</div>
+                        <div>
+                            <div class="o_card_title">Pending</div>
+                            <div class="o_card_value">
+                                <h1>
+                                <t t-esc="state.currency_symbol"/> 
+                                <t t-esc="state.fee_pending"/>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </t>
+
+</templates>

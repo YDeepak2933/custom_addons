@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_fee_receipt_report" model="ir.actions.report">
+        <field name="name">Fee Receipt</field>
+        <field name="model">school.fee.payment.collection</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">at_school_management.fee_receipt_report_template</field>
+        <field name="report_file">at_school_management.fee_receipt_report_template</field>
+        <field name="print_report_name">'Fee Receipt'</field>
+        <field name="binding_model_id" ref="model_school_fee_payment_collection"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="fee_receipt_report_template">
+        <t t-call="web.external_layout">
+            <main>   <!-- ✅ REQUIRED -->
+
+            <div class="page">
+
+                <h2>Fee Receipt Report</h2>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Date</th>
+                            <th>Payment Mode</th>
+                            <th>Remarks</th>
+                            <th>Class</th>
+                            <th>Paid</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr t-foreach="docs" t-as="o">
+                            <td><t t-esc="o.fee_payment_id.student_id.name"/></td>
+                            <td><t t-esc="o.date"/></td>
+                            <td><t t-esc="o.payment_mode"/></td>
+                            <td><t t-esc="o.description"/></td>
+                            <td><t t-esc="o.fee_payment_id.class_id.name"/></td>
+                            <td><t t-esc="o.paid" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                            <td><t t-esc="o.fee_payment_id.balance_amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            </main>
+        </t>
+    </template>
+
+</odoo>

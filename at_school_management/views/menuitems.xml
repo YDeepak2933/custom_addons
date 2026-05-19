@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_school_root"
+        name="School"
+        web_icon="school,static/src/img/icon.png"/>
+
+   <menuitem id="menu_school_exam_root" name="Configuration" parent="menu_school_root" sequence="6"/>
+</odoo>
