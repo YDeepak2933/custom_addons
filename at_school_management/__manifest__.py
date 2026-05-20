@@ -9,7 +9,7 @@
     "license": "AGPL-3",
     'category': 'Education',
     'version': '18.0.1.0.0',
-    'depends': ['base', 'contacts', 'hr'],
+    'depends': ['base', 'contacts', 'hr','report_xlsx'],
     'data': [
         'security/ir.model.access.csv',
         'report/ir_actions_report.xml',
